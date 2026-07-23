@@ -2001,11 +2001,9 @@ async function initializeFirebaseAuth() {
       await signInWithPopup(firebaseAuth, provider);
     } catch (error) {
       console.error("Google login error:", error);
-      alert(
-  "Googleログインに失敗しました。\n\n" +
+      alert( "Googleログインに失敗しました。\n\n" +
   "エラーコード: " + error.code + "\n" +
-  "詳細: " + error.message
-);
+  "詳細: " + error.message);
     }
   };
 
