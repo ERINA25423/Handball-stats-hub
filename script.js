@@ -1966,7 +1966,7 @@ loadFromDevice();
 ========================= */
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDuao22pggy_16XquHR0361RK0vMjx-7Aw",
+  apiKey: "AIzaSyDuao22pggy_16XquHR0361RKOvMjx-7Aw",
   authDomain: "handball-stats-hub-fbfe2.firebaseapp.com",
   projectId: "handball-stats-hub-fbfe2",
   storageBucket: "handball-stats-hub-fbfe2.firebasestorage.app",
