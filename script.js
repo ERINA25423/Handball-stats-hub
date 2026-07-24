@@ -1965,3 +1965,16 @@ function renderAnalysis(match) {
 updateTimer();
 loadFromDevice();
 
+// Firebaseの準備完了後、クラウドの試合データを端末にも同期
+window.addEventListener("cloudMatchesReady", function (event) {
+  const cloudMatches = event.detail || [];
+
+  if (cloudMatches.length > 0) {
+    localStorage.setItem(
+      "handballMatches",
+      JSON.stringify(cloudMatches)
+    );
+
+    loadFromDevice();
+  }
+});
