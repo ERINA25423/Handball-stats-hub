@@ -144,6 +144,23 @@ onAuthStateChanged(
         user.uid
       );
 
+      // ログイン後、クラウドの試合データを読み込む
+setTimeout(async () => {
+  if (window.loadMatchesFromCloud) {
+    const cloudMatches =
+      await window.loadMatchesFromCloud();
+
+    window.dispatchEvent(
+      new CustomEvent(
+        "cloudMatchesReady",
+        {
+          detail: cloudMatches
+        }
+      )
+    );
+  }
+}, 500);
+
     } else {
 
       if (loginBtn) {
