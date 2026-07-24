@@ -2039,7 +2039,7 @@ window.firestoreDB = getFirestore(app);
   });
 }
 
-initializeFirebaseAuth();
+// initializeFirebaseAuth();
 
 /* =========================
    FIRESTORE CLOUD SAVE
