@@ -1251,3 +1251,10 @@ h2 {
 #logoutBtn:active {
   transform: scale(0.98);
 }
+
+#googleLoginBtn,
+#logoutBtn {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
