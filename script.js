@@ -2040,3 +2040,52 @@ window.firestoreDB = getFirestore(app);
 }
 
 initializeFirebaseAuth();
+
+/* =========================
+   FIRESTORE CLOUD SAVE
+========================= */
+
+async function saveMatchToCloud(matchData) {
+  if (!firebaseAuth || !firebaseAuth.currentUser) {
+    console.log("未ログインのためクラウド保存しません");
+    return;
+  }
+
+  if (!window.firestoreDB) {
+    console.error("Firestoreが初期化されていません");
+    return;
+  }
+
+  try {
+    const { doc, setDoc } = await import(
+      "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js"
+    );
+
+    const user = firebaseAuth.currentUser;
+
+    const matchId =
+      matchData.id ||
+      Date.now().toString();
+
+    await setDoc(
+      doc(
+        window.firestoreDB,
+        "users",
+        user.uid,
+        "matches",
+        matchId
+      ),
+      {
+        ...matchData,
+        id: matchId,
+        userId: user.uid,
+        updatedAt: new Date().toISOString()
+      }
+    );
+
+    console.log("クラウド保存成功:", matchId);
+
+  } catch (error) {
+    console.error("クラウド保存エラー:", error);
+  }
+}
