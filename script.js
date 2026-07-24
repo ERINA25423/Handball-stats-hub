@@ -666,7 +666,7 @@ startMatchButton.addEventListener("click", () => {
    END MATCH
 ======================================== */
 
-endMatchButton.addEventListener("click", () => {
+endMatchButton.addEventListener("click",async () => {
 
   const confirmed = confirm(
     "END MATCH?\n\n試合を終了して保存しますか？"
@@ -717,6 +717,25 @@ endMatchButton.addEventListener("click", () => {
 
   };
 
+     // Firestoreにも試合データを保存
+  if (window.firestoreDB && firebaseAuth?.currentUser) {
+    try {
+      await setDoc(
+        doc(
+          window.firestoreDB,
+          "users",
+          firebaseAuth.currentUser.uid,
+          "matches",
+          String(completedMatch.id)
+        ),
+        completedMatch
+      );
+
+      console.log("Firestoreへの保存に成功しました");
+    } catch (error) {
+      console.error("Firestoreへの保存に失敗しました:", error);
+    }
+  }
 
   const savedMatches =
     JSON.parse(
