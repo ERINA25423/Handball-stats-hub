@@ -1965,16 +1965,58 @@ function renderAnalysis(match) {
 updateTimer();
 loadFromDevice();
 
-// Firebaseの準備完了後、クラウドの試合データを端末にも同期
-window.addEventListener("cloudMatchesReady", function (event) {
+// Firebaseから取得した試合と端末内の試合を安全に統合
+window.addEventListener("cloudMatchesReady", async function (event) {
   const cloudMatches = event.detail || [];
 
-  if (cloudMatches.length > 0) {
-    localStorage.setItem(
-      "handballMatches",
-      JSON.stringify(cloudMatches)
-    );
+  // 端末に保存されている試合を取得
+  const localMatches =
+    JSON.parse(
+      localStorage.getItem("handballMatches")
+    ) || [];
 
-    loadFromDevice();
+  // IDを使って重複を除去
+  const matchMap = new Map();
+
+  localMatches.forEach((match) => {
+    if (match && match.id != null) {
+      matchMap.set(String(match.id), match);
+    }
+  });
+
+  cloudMatches.forEach((match) => {
+    if (match && match.id != null) {
+      matchMap.set(String(match.id), match);
+    }
+  });
+
+  // 統合した試合一覧
+  const mergedMatches =
+    Array.from(matchMap.values());
+
+  // 新しい試合が上になるよう並び替え
+  mergedMatches.sort((a, b) => {
+    return Number(b.id || 0) - Number(a.id || 0);
+  });
+
+  // 端末にも保存
+  localStorage.setItem(
+    "handballMatches",
+    JSON.stringify(mergedMatches)
+  );
+
+  // 端末にしかなかった試合もFirebaseへ保存
+  if (window.saveMatchToCloud) {
+    for (const match of mergedMatches) {
+      await window.saveMatchToCloud(match);
+    }
   }
+
+  // MATCH HISTORYを更新
+  loadFromDevice();
+
+  console.log(
+    "端末とクラウドの試合データを統合しました:",
+    mergedMatches.length
+  );
 });
