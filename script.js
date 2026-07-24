@@ -2052,6 +2052,7 @@ window.firestoreDB = getFirestore(app);
   onAuthStateChanged(firebaseAuth, (user) => {
     if (user) {
       console.log("ログイン中:", user.displayName, user.email);
+   loadMatchesFromCloud();
     } else {
       console.log("ログアウト中");
     }
@@ -2108,3 +2109,49 @@ async function saveMatchToCloud(matchData) {
     console.error("クラウド保存エラー:", error);
   }
 }
+async function loadMatchesFromCloud() {
+  if (!firebaseAuth || !firebaseAuth.currentUser || !window.firestoreDB) {
+    return;
+  }
+
+  try {
+    const user = firebaseAuth.currentUser;
+
+    const matchesRef = collection(
+      window.firestoreDB,
+      "users",
+      user.uid,
+      "matches"
+    );
+
+    const snapshot = await getDocs(matchesRef);
+
+    const cloudMatches = [];
+
+    snapshot.forEach((docSnap) => {
+      cloudMatches.push(docSnap.data());
+    });
+
+    cloudMatches.sort((a, b) => {
+      return new Date(b.savedAt || b.updatedAt || 0) -
+             new Date(a.savedAt || a.updatedAt || 0);
+    });
+
+    localStorage.setItem(
+      "handballMatches",
+      JSON.stringify(cloudMatches)
+    );
+
+    console.log(
+      "クラウドから試合履歴を読み込みました:",
+      cloudMatches.length
+    );
+
+    renderMatchHistory();
+
+  } catch (error) {
+    console.error(
+      "クラウド読み込みエラー:",
+      error
+    );
+  }
