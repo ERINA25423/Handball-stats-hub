@@ -1210,10 +1210,46 @@ h2 {
     border-right: none;
   }
 }
+/* ===== ACCOUNT BUTTONS ===== */
 
 #googleLoginBtn,
 #logoutBtn {
+  appearance: none;
+  -webkit-appearance: none;
+
   display: block;
-  margin-left: auto;
-  margin-right: auto;
+  width: min(420px, 90%);
+  min-height: 52px;
+
+  /* 親要素の中央に確実に配置 */
+  align-self: center;
+  margin: 8px 0;
+
+  border-radius: 12px;
+  box-sizing: border-box;
+
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  text-align: center;
+
+  cursor: pointer;
+}
+
+#googleLoginBtn {
+  background: #ffffff;
+  color: #202124;
+  border: 1px solid #3b4252;
+}
+
+#logoutBtn {
+  background: transparent;
+  color: #9ba3b3;
+  border: 1px solid #343a4d;
+}
+
+#googleLoginBtn:active,
+#logoutBtn:active {
+  transform: scale(0.98);
 }
