@@ -1974,20 +1974,6 @@ const firebaseConfig = {
   appId: "1:863014841100:web:db81c0a5633e7e28fe7729"
 };
 
-const {
-  getFirestore,
-  collection,
-  doc,
-  setDoc,
-  getDoc,
-  getDocs,
-  deleteDoc,
-  query,
-  orderBy
-} = await import(
-  "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js"
-);
-
 let firebaseAuth = null;
 
 async function initializeFirebaseAuth() {
