@@ -717,6 +717,10 @@ endMatchButton.addEventListener("click", () => {
 
   };
 
+   // ログイン中ならFirebaseにも保存
+if (window.saveMatchToCloud) {
+  window.saveMatchToCloud(completedMatch);
+}
 
   const savedMatches =
     JSON.parse(
