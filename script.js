@@ -201,22 +201,27 @@ document
 ======================================== */
 
 function setupSingleSelection(selector, callback) {
-  const buttons =
-    document.querySelectorAll(selector);
+  const buttons = document.querySelectorAll(selector);
 
   buttons.forEach((button) => {
-
     button.addEventListener("click", () => {
 
+      // 既に選択されていたら解除
+      if (button.classList.contains("active")) {
+        button.classList.remove("active");
+        callback(null);
+        return;
+      }
+
+      // 他を解除
       buttons.forEach((b) => {
         b.classList.remove("active");
       });
 
+      // 新しく選択
       button.classList.add("active");
-
       callback(button);
     });
-
   });
 }
 
