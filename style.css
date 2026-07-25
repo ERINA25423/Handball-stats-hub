@@ -1282,3 +1282,15 @@ h2 {
   right: 0 !important;
   transform: none !important;
 }
+
+.player-name{
+    width:70px;
+    margin-top:6px;
+    padding:4px;
+    text-align:center;
+    font-size:12px;
+    border-radius:6px;
+    border:1px solid #555;
+    background:#1d2230;
+    color:#fff;
+}
