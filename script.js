@@ -234,7 +234,7 @@ setupSingleSelection(
   "#goalGrid button",
   (button) => {
     selectedCourse =
-      button.dataset.course || "";
+    button ? button.dataset.course : "";
   }
 );
 
@@ -247,7 +247,7 @@ setupSingleSelection(
   ".shot-types button",
   (button) => {
     selectedShotType =
-      button.textContent.trim();
+    button ? button.textContent.trim() : "";
   }
 );
 
@@ -260,7 +260,7 @@ setupSingleSelection(
   ".results button",
   (button) => {
     selectedResult =
-      button.dataset.result || "";
+    button ? button.dataset.result : "";
   }
 );
 
@@ -273,7 +273,7 @@ setupSingleSelection(
   ".events button",
   (button) => {
     selectedEvent =
-      button.dataset.event || "";
+    button ? button.dataset.event : "";
   }
 );
 
