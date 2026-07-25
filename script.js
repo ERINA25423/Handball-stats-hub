@@ -202,19 +202,6 @@ button.addEventListener("click", () => {
   selectedPosition =
     button.dataset.position || "";
 });
-      document
-        .querySelectorAll(".player-position")
-        .forEach((btn) => {
-          btn.classList.remove("selected");
-          btn.classList.remove("active");
-        });
-
-      button.classList.add("selected");
-      button.classList.add("active");
-
-      selectedPosition =
-        button.dataset.position || "";
-    });
 
   });
 
