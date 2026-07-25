@@ -206,17 +206,24 @@ function setupSingleSelection(selector, callback) {
   buttons.forEach((button) => {
     button.addEventListener("click", () => {
 
+      // すでに選択されていたら解除
+      if (button.classList.contains("active")) {
+        button.classList.remove("active");
+        callback(null);
+        return;
+      }
+
+      // 他の選択を解除
       buttons.forEach((b) => {
         b.classList.remove("active");
       });
 
+      // 新しく選択
       button.classList.add("active");
-
       callback(button);
     });
   });
 }
-
 
 /* ========================================
    SHOT COURSE
