@@ -161,7 +161,7 @@ document
   .forEach((button) => {
 
     const numberInput =
-      button.querySelector(".jersey-number");
+      button.querySelector(".player-name");
 
     numberInput.addEventListener("click", (event) => {
       event.stopPropagation();
@@ -347,7 +347,7 @@ function saveEvent() {
 
   const playerNumber =
     selectedPlayerButton
-      ?.querySelector(".jersey-number")
+      ?.querySelector(".player-name")
       ?.value || "?";
 
 
