@@ -177,8 +177,31 @@ document
       }
     });
 
-    button.addEventListener("click", () => {
+button.addEventListener("click", () => {
 
+  // すでに選択中なら解除
+  if (button.classList.contains("selected")) {
+    button.classList.remove("selected");
+    button.classList.remove("active");
+    selectedPosition = "";
+    return;
+  }
+
+  // 他を解除
+  document
+    .querySelectorAll(".player-position")
+    .forEach((btn) => {
+      btn.classList.remove("selected");
+      btn.classList.remove("active");
+    });
+
+  // 新しく選択
+  button.classList.add("selected");
+  button.classList.add("active");
+
+  selectedPosition =
+    button.dataset.position || "";
+});
       document
         .querySelectorAll(".player-position")
         .forEach((btn) => {
