@@ -2052,3 +2052,9 @@ window.addEventListener("cloudMatchesReady", async function (event) {
     mergedMatches.length
   );
 });
+
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./service-worker.js");
+  });
+}
