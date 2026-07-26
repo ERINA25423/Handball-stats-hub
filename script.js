@@ -11,7 +11,7 @@ let selectedResult = "";
 let selectedEvent = "";
 
 let eventHistory = [];
-
+let historyFilter = "ALL";
 
 /* ========================================
    ELEMENTS
@@ -534,7 +534,25 @@ function renderHistory() {
   });
 
 }
+document
+  .querySelectorAll(".history-filter button")
+  .forEach((button) => {
 
+    button.addEventListener("click", () => {
+
+      document
+        .querySelectorAll(".history-filter button")
+        .forEach((b) => b.classList.remove("active"));
+
+      button.classList.add("active");
+
+      historyFilter = button.dataset.filter;
+
+      renderHistory();
+
+    });
+
+  });
 
 /* ========================================
    UNDO
